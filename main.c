@@ -1,119 +1,135 @@
 #include <stdio.h>
 
-// Desafio Super Trunfo - Países
-// Tema 3 - Desafio: nível mestre
+// Função para exibir o menu e capturar a escolha do usuário
+int exibirMenu() {
+    int escolha;
+    printf("\nEscolha o atributo para comparar:\n");
+    printf("1 - População\n");
+    printf("2 - Área\n");
+    printf("3 - PIB\n");
+    printf("4 - Pontos Turísticos\n");
+    printf("5 - Densidade Populacional\n");
+    printf("0 - sair\n");
+    printf("Digite sua escolha: ");
+    scanf("%d", &escolha);
+    return escolha;
+}
 
 int main() {
-    char estado1, estado2;
-    int numeroCidade1, numeroCidade2;
-    char codigo1[4], codigo2[4]; 
-    char nomeCidade1[50], nomeCidade2[50];
+    // Declaração das variáveis
+    char nomePais1[50], nomePais2[50];
     int populacao1, populacao2;
     float area1, area2, pib1, pib2;
     int pontosTuristicos1, pontosTuristicos2;
     float densidadePopulacional1, densidadePopulacional2;
-    float pibPerCapita1, pibPerCapita2;
-    float superPoder1, superPoder2;
 
-
-    // Entrada dos dados
-    printf("Digite a letra do estado (A-H): ");
-    scanf(" %c", &estado1); // Lê um caractere com espaço em branco antes do %c para consumir o \n do buffer do teclado
-    
-    printf("Digite o número da cidade (1-4): ");
-    scanf("%d", &numeroCidade1); // Lê um número inteiro e armazena na variável numeroCidade
-    
-    printf("Digite o nome da cidade: ");
-    scanf(" %[^\n]", nomeCidade1); // Lê uma string com espaços
-
-    printf("Digite a população da cidade: ");
+    // Entrada dos dados da Pais 1
+    printf("Digite o nome do Pais 1: ");
+    scanf(" %[^\n]", nomePais1);
+    printf("Digite a população do Pais 1: ");
     scanf("%d", &populacao1);
-
-    printf("Digite a área da cidade (km²): ");
+    printf("Digite a área do Pais 1 (km²): ");
     scanf("%f", &area1);
-
-    printf("Digite o PIB da cidade (em bilhões): ");
+    printf("Digite o PIB do Pais 1 (em bilhões): ");
     scanf("%f", &pib1);
-
-    printf("Digite o número de pontos turísticos: ");
+    printf("Digite o número de pontos turísticos do Pais 1: ");
     scanf("%d", &pontosTuristicos1);
 
-    // Gerar o código da cidade
-    sprintf(codigo1, "%c%02d", estado1, numeroCidade1);
-
-    // Calcular a densidade populacional
+    // Cálculo da densidade populacional
     densidadePopulacional1 = (area1 > 0) ? (float)populacao1 / area1 : 0;
-    pibPerCapita1 = (populacao1 > 0) ? (pib1 * 1000000000) / populacao1 : 0;
-    superPoder1 = populacao1 + area1 + pib1 + pontosTuristicos1 + pibPerCapita1 + (densidadePopulacional1 > 0 ? 1 / densidadePopulacional1 : 0);
 
-
-
-
-    printf("Digite a letra do estado (A-H): ");
-    scanf(" %c", &estado2); // Lê um caractere com espaço em branco antes do %c para consumir o \n do buffer do teclado
-    
-    printf("Digite o número da cidade (1-4): ");
-    scanf("%d", &numeroCidade2); // Lê um número inteiro e armazena na variável numeroCidade
-    
-    printf("Digite o nome da cidade: ");
-    scanf(" %[^\n]", nomeCidade2); // Lê uma string com espaços
-
-    printf("Digite a população da cidade: ");
+    // Entrada dos dados da Pais 2
+    printf("\nDigite o nome do Pais 2: ");
+    scanf(" %[^\n]", nomePais2);
+    printf("Digite a população do Pais 2: ");
     scanf("%d", &populacao2);
-
-    printf("Digite a área da cidade (km²): ");
+    printf("Digite a área do Pais 2 (km²): ");
     scanf("%f", &area2);
-
-    printf("Digite o PIB da cidade (em bilhões): ");
+    printf("Digite o PIB do Pais 2 (em bilhões): ");
     scanf("%f", &pib2);
-
-    printf("Digite o número de pontos turísticos: ");
+    printf("Digite o número de pontos turísticos do Pais 2: ");
     scanf("%d", &pontosTuristicos2);
 
-    // Gerar o código da cidade
-    sprintf(codigo2, "%c%02d", estado2, numeroCidade2);
-
-    // Calcular a densidade populacional
+    // Cálculo da densidade populacional
     densidadePopulacional2 = (area2 > 0) ? (float)populacao2 / area2 : 0;
-    pibPerCapita2 = (populacao2 > 0) ? (pib2 * 1000000000) / populacao2 : 0;
-    superPoder2 = populacao2 + area2 + pib2 + pontosTuristicos2 + pibPerCapita2 + (densidadePopulacional2 > 0 ? 1 / densidadePopulacional2 : 0);
 
-    //cidade que venceu
+    // Exibição do menu para escolha do atributo
+    int escolha = exibirMenu();
 
-    int cidade1venceu = (superPoder1) > (superPoder2);
-    int cidade2venceu = (superPoder2) > (superPoder1);
-    int empate = (superPoder1 == superPoder2);
+    // Comparação baseada no atributo escolhido
+    printf("\nAtributo escolhido: ");
+    switch (escolha) {
+        case 1: // População
+            printf("População\n");
+            printf("%s: %d habitantes\n", nomePais1, populacao1);
+            printf("%s: %d habitantes\n", nomePais2, populacao2);
+            if (populacao1 > populacao2) {
+                printf("Vencedor: %s\n", nomePais1);
+            } else if (populacao2 > populacao1) {
+                printf("Vencedor: %s\n", nomePais2);
+            } else {
+                printf("Empate!\n");
+            }
+            break;
 
+        case 2: // Área
+            printf("Área\n");
+            printf("%s: %.2f km²\n", nomePais1, area1);
+            printf("%s: %.2f km²\n", nomePais2, area2);
+            if (area1 > area2) {
+                printf("Vencedor: %s\n", nomePais1);
+            } else if (area2 > area1) {
+                printf("Vencedor: %s\n", nomePais2);
+            } else {
+                printf("Empate!\n");
+            }
+            break;
 
-    // Saída dos dados cadastrados
+        case 3: // PIB
+            printf("PIB\n");
+            printf("%s: %.2f bilhões\n", nomePais1, pib1);
+            printf("%s: %.2f bilhões\n", nomePais2, pib2);
+            if (pib1 > pib2) {
+                printf("Vencedor: %s\n", nomePais1);
+            } else if (pib2 > pib1) {
+                printf("Vencedor: %s\n", nomePais2);
+            } else {
+                printf("Empate!\n");
+            }
+            break;
 
-    printf("\n\nCidade 1\n");
-    printf("Código: %s\n", codigo1);
-    printf("Nome: %s\n", nomeCidade1);
-    printf("População: %d\n", populacao1);
-    printf("Área: %.2f km²\n", area1);
-    printf("PIB: %.2f bilhões\n", pib1);
-    printf("Pontos Turísticos: %d\n", pontosTuristicos1);
-    printf("Densidade Populacional: %.2f hab/km²\n", densidadePopulacional1);
-    printf("PIB per Capita: %.2f\n", pibPerCapita1);
-    printf("Tamanho do Poder: %.3f\n", superPoder1);
+        case 4: // Pontos Turísticos
+            printf("Pontos Turísticos\n");
+            printf("%s: %d pontos turísticos\n", nomePais1, pontosTuristicos1);
+            printf("%s: %d pontos turísticos\n", nomePais2, pontosTuristicos2);
+            if (pontosTuristicos1 > pontosTuristicos2) {
+                printf("Vencedor: %s\n", nomePais1);
+            } else if (pontosTuristicos2 > pontosTuristicos1) {
+                printf("Vencedor: %s\n", nomePais2);
+            } else {
+                printf("Empate!\n");
+            }
+            break;
 
-    printf("\n\nCidade 2\n");
-    printf("Código: %s\n", codigo2);
-    printf("Nome: %s\n", nomeCidade2);
-    printf("População: %d\n", populacao2);
-    printf("Área: %.2f km²\n", area2);
-    printf("PIB: %.2f bilhões\n", pib2);
-    printf("Pontos Turísticos: %d\n", pontosTuristicos2);
-    printf("Densidade Populacional: %.2f hab/km²\n", densidadePopulacional2);
-    printf("PIB per Capita: %.2f\n", pibPerCapita2);
-    printf("Tamanho do Poder: %.3f\n", superPoder2);
+        case 5: // Densidade Populacional (REGRA INVERTIDA)
+            printf("Densidade Populacional (quanto menor, melhor)\n");
+            printf("%s: %.2f hab/km²\n", nomePais1, densidadePopulacional1);
+            printf("%s: %.2f hab/km²\n", nomePais2, densidadePopulacional2);
+            if (densidadePopulacional1 < densidadePopulacional2) {
+                printf("Vencedor: %s\n", nomePais1);
+            } else if (densidadePopulacional2 < densidadePopulacional1) {
+                printf("Vencedor: %s\n", nomePais2);
+            } else {
+                printf("Empate!\n");
+            }
+            break;
+        case 0:
+            printf("Saindo...");
+            break;
 
-    printf("\n\nQUEM GANHOU?\n");
-    printf("Cidade 1 ganhou: %d\n", cidade1venceu);
-    printf("Cidade 2 ganhou: %d\n", cidade2venceu);
-    printf("Empate: %d\n", empate);
-
+        default: // Opção inválida
+            printf("Opção inválida! Escolha um número de 1 a 5 (0 - para sair).\n");
+    }
 
     return 0;
 }
